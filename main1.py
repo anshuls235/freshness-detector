@@ -63,6 +63,8 @@ def upload_predict():
         image_file = request.files["image"]
         if image_file:
             image = cv2.imdecode(np.fromstring(image_file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+            MODEL = Net()
+            MODEL.load_state_dict(torch.load("FreshnessDetector.pt", map_location=torch.device(DEVICE)))
             pred = predict(image, MODEL)
             # In memory
             image_content = cv2.imencode('.jpg', image)[1].tostring()
@@ -73,7 +75,4 @@ def upload_predict():
 
 
 if __name__ == "__main__":
-    MODEL = Net()
-    MODEL.load_state_dict(torch.load("FreshnessDetector.pt", map_location=torch.device(DEVICE)))
-    print(MODEL)
     app.run()
