@@ -45,10 +45,13 @@ def predict(image, model):
                                       transforms.ToTensor(),
                                       transforms.Normalize(mean,std)
                                       ])
+    print(image.shape)
     img = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
     img = cv2.resize(img,(32,32))
+    print(img.shape)
     img_as_tensor = transformations_test(img)
     s = nn.Softmax(dim=1)
+    print(img_as_tensor.shape)
     out = model(img_as_tensor.unsqueeze(0).to(DEVICE))
     fresh_percent = s(out)
 
@@ -59,6 +62,7 @@ def predict(image, model):
 def upload_predict():
     if request.method == "POST":
         image_file = request.files["image"]
+        print(image_file)
         if image_file:
             image = cv2.imdecode(np.fromstring(image_file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
             pred = predict(image, MODEL)
