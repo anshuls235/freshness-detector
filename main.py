@@ -17,6 +17,7 @@ import numpy as np
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "static"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 DEVICE = "cpu"
 MODEL = None
 
