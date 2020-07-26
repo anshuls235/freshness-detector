@@ -50,8 +50,8 @@ def predict(image, model):
     img_as_tensor = transformations_test(img)
     s = nn.Softmax(dim=1)
     batch = img_as_tensor.unsqueeze(0)
-    print(batch.shape)
     out = model(batch)
+    print(model)
     fresh_percent = s(out)
 
     return int(fresh_percent[0][0].item()*100)
@@ -61,7 +61,6 @@ def predict(image, model):
 def upload_predict():
     if request.method == "POST":
         image_file = request.files["image"]
-        print(image_file)
         if image_file:
             image = cv2.imdecode(np.fromstring(image_file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
             pred = predict(image, MODEL)
@@ -76,5 +75,5 @@ def upload_predict():
 if __name__ == "__main__":
     MODEL = Net()
     MODEL.load_state_dict(torch.load("FreshnessDetector.pt", map_location=torch.device(DEVICE)))
-    MODEL.to(DEVICE)
+    print(MODEL)
     app.run()
