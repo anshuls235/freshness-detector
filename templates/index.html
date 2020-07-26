@@ -22,7 +22,7 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Detect</button>
       <br>
       {% if image_loc %}
-        <img class="mb-4" src="static/{{image_loc}}" alt="" width="256" height="256">
+        <img class="mb-4" src="{{image_loc}}" alt="" width="256" height="256">
         <h3 class="h3 mb-3 font-weight-normal">Freshness: {{prediction}}%</h3>
       {%endif%}
     </form>
