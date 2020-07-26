@@ -19,7 +19,6 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "static"
 DEVICE = "cpu"
 MODEL = None
-server = app.server()
 
 class Net(nn.Module):
     def __init__(self):
